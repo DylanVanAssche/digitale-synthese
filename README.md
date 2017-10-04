@@ -3,7 +3,7 @@ This repository contains the VHDL files for the course "Digital Synthese: pratic
 
 ## Files
 - debounce.vhd: Debouncer for push buttons
-- debounce_test.vhd: Debouncer _TESTBENCH_
+- debounce_test.vhd: Debouncer for push buttons _TESTBENCH_
 - binToSegDisplay.vhd: Binary to 7 segment display convertor
 - binToSegDisplay_test.vhd: Binary to 7 segment display convertor _TESTBENCH_
 
