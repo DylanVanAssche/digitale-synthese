@@ -34,10 +34,10 @@ ENTITY application IS
 END application;
 ARCHITECTURE behavior OF application IS
 	SIGNAL counter_output : std_logic_vector(3 DOWNTO 0);
-	SIGNAL btn_up_deb_s   : std_logic;
-	SIGNAL btn_down_deb_s : std_logic;
-	SIGNAL btn_up_edg_s   : std_logic;
-	SIGNAL btn_down_edg_s : std_logic;
+	SIGNAL debounce1_syncha   : std_logic;
+	SIGNAL debounce2_syncha : std_logic;
+	SIGNAL edge1_puls   : std_logic;
+	SIGNAL edge2_puls : std_logic;
 BEGIN
 	output <= counter_output;
 	decoder : ENTITY work.decoder(behavior)
@@ -49,8 +49,8 @@ BEGIN
 	edge1 : ENTITY work.edgedetector(behavior)
 	PORT MAP
 	(
-		data   => btn_up_deb_s,
-		puls   => btn_up_edg_s,
+		data   => debounce1_syncha,
+		puls   => edge1_puls,
 		clk    => clk,
 		clk_en => clk_en,
 		rst    => rst
@@ -58,8 +58,8 @@ BEGIN
 	edge2 : ENTITY work.edgedetector(behavior)
 	PORT MAP
 	(
-		data   => btn_down_deb_s,
-		puls   => btn_down_edg_s,
+		data   => debounce2_syncha,
+		puls   => edge2_puls,
 		clk    => clk,
 		clk_en => clk_en,
 		rst    => rst
@@ -71,7 +71,7 @@ BEGIN
 		clk_en => clk_en,
 		rst    => rst,
 		cha    => up,
-		syncha => btn_up_deb_s
+		syncha => debounce1_syncha
 	);
 	debounce2 : ENTITY work.debouncer(behavior)
 	PORT MAP
@@ -80,7 +80,7 @@ BEGIN
 		clk_en => clk_en,
 		rst    => rst,
 		cha    => down,
-		syncha => btn_down_deb_s
+		syncha => debounce2_syncha
 	);
 	counter : ENTITY work.counter(behavior)
 	PORT MAP
@@ -88,8 +88,8 @@ BEGIN
 		clk    => clk,
 		clk_en => clk_en,
 		rst    => rst,
-		up     => btn_up_edg_s,
-		down   => btn_down_edg_s,
+		up     => edge1_puls,
+		down   => edge2_puls,
 		output => counter_output
 	);
 END behavior;
