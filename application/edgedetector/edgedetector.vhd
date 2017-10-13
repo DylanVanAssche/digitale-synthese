@@ -1,9 +1,9 @@
---******************************************************************************
---* TITLE: Edgedetector FSM (sender) *
---* TYPE: Component *
---* AUTHOR: Dylan Van Assche *
---* DATE: 05/10/2017 *
---******************************************************************************
+--***************************************
+--* TITLE: Edgedetector FSM (sender) 	*
+--* TYPE: Component 			*
+--* AUTHOR: Dylan Van Assche 		*
+--* DATE: 05/10/2017 			*
+--***************************************
 --********************
 --* DESCRIPTION *
 --********************
@@ -15,9 +15,9 @@
 -- data, clk, clk_en, rst
 --4)Outputs:
 -- puls
---***************************
+--**********************
 --* LIBRARIES & ENTITY *
---***************************
+--**********************
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
@@ -28,9 +28,9 @@ ENTITY edgedetector IS
 		puls                   : OUT std_logic
 	);
 END edgedetector;
---**************************************************
+--*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
---**************************************************
+--*********************************************
 ARCHITECTURE behavior OF edgedetector IS
 	TYPE state IS (s0, s1, s2);
 	SIGNAL present_state, next_state : state;

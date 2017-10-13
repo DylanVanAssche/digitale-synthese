@@ -11,9 +11,9 @@
 -- Debouncing the input buttons.
 --2)Principle:
 -- When detecting 4 clock cycles the same input, data is valid.
---3)Ingangen:
+--3)Inputs:
 -- cha, rst, clk
---4)Uitgangen:
+--4)Outputs:
 -- syncha
 --**********************
 --* LIBRARIES & ENTITY *

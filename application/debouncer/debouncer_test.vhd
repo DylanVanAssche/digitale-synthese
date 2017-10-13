@@ -1,9 +1,9 @@
---******************************************************************************
+--***************************************
 --* TITLE: Debouncer TESTBENCH (sender) *
---* TYPE: Component *
---* AUTHOR: Dylan Van Assche *
---* DATE: 01/10/2017 *
---******************************************************************************
+--* TYPE: Component 			*
+--* AUTHOR: Dylan Van Assche 		*
+--* DATE: 01/10/2017 			*
+--***************************************
 --********************
 --* DESCRIPTION *
 --********************
@@ -11,22 +11,22 @@
 -- TESTBENCH: Debouncing the input buttons.
 --2)Principle:
 -- When detecting 4 clock cycles the same input, data is valid.
---3)Ingangen:
+--3)Inputs:
 -- cha, rst, clk
---4)Uitgangen:
+--4)Outputs:
 -- syncha
---***************************
+--**********************
 --* LIBRARIES & ENTITY *
---***************************
+--**********************
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
 ENTITY debouncer_test IS
 END debouncer_test;
---**************************************************
+--*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
---**************************************************
+--*********************************************
 ARCHITECTURE structural OF debouncer_test IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;

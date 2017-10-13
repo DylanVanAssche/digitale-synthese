@@ -1,9 +1,9 @@
---******************************************************************************
---* TITLE: Application TESTBENCH (sender) *
---* TYPE: Component *
---* AUTHOR: Dylan Van Assche *
---* DATE: 01/10/2017 *
---******************************************************************************
+--***********************************************
+--* TITLE: Application TESTBENCH (sender) 	*
+--* TYPE: Component 				*
+--* AUTHOR: Dylan Van Assche 			*
+--* DATE: 01/10/2017 				*
+--***********************************************
 --********************
 --* DESCRIPTION *
 --********************
@@ -11,22 +11,22 @@
 -- TESTBENCH: Application layer API.
 --2)Principle:
 -- Provide an API as application layer
---3)Ingangen:
+--3)Inputs:
 -- cha, rst, clk, clk_en
---4)Uitgangen:
+--4)Outputs:
 -- output, display_b
---***************************
+--**********************
 --* LIBRARIES & ENTITY *
---***************************
+--**********************
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
 ENTITY application_test IS
 END application_test;
---**************************************************
+--*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
---**************************************************
+--*********************************************
 ARCHITECTURE structural OF application_test IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;

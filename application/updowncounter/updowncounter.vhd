@@ -10,9 +10,9 @@
 -- Counting up/down
 --2)Principle:
 -- When up or down input is high, count
---3)Ingangen:
+--3)Inputs:
 -- up, down, rst, clk, clk_en
---4)Uitgangen:
+--4)Outputs:
 -- output
 --**********************
 --* LIBRARIES & ENTITY *

@@ -11,9 +11,9 @@
 -- Application layer API.
 --2)Principle:
 -- Provide an API as application layer
---3)Ingangen:
+--3)Inputs:
 -- cha, rst, clk, clk_en
---4)Uitgangen:
+--4)Outputs:
 -- output, display_b
 --**********************
 --* LIBRARIES & ENTITY *

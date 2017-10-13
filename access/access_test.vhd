@@ -1,59 +1,62 @@
---***********************************************
---* TITLE: Edgedetector FSM TESTBENCH (sender) 	*
---* TYPE: Component 				*
---* AUTHOR: Dylan Van Assche 			*
---* DATE: 05/10/2017 				*
---***********************************************
+--***************************************
+--* TITLE: Access TESTBENCH (sender) 	*
+--* TYPE: Component 			*
+--* AUTHOR: Dylan Van Assche 		*
+--* DATE: 12/10/2017 			*
+--***************************************
 --********************
 --* DESCRIPTION *
 --********************
 --1)Purpose:
--- Check if a signal goes from LOW to HIGH
+-- TESTBENCH: Access layer API.
 --2)Principle:
--- Moore FSM
+-- Provide an API as access layer
 --3)Inputs:
--- data, clk, clk_en, rst
+-- rst, clk, clk_en
 --4)Outputs:
--- puls
+-- output, display_b
 --**********************
 --* LIBRARIES & ENTITY *
 --**********************
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
-ENTITY edgedetector_test IS
-END edgedetector_test;
+USE ieee.std_logic_arith.ALL;
+ENTITY access_layer_test IS
+END access_layer_test;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF edgedetector_test IS
+ARCHITECTURE structural OF access_layer_test IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
 	SIGNAL end_of_sim : BOOLEAN := false;
-	SIGNAL data       : std_logic;
 	SIGNAL clk        : std_logic;
 	SIGNAL clk_en     : std_logic := '1';
 	SIGNAL rst        : std_logic;
-	SIGNAL puls       : std_logic;
+	SIGNAL data	  : std_logic;
+	SIGNAL pn_select  : std_logic_vector(1 DOWNTO 0);
+	SIGNAL pn_start   : std_logic;
+	SIGNAL tx         : std_logic;
 BEGIN
 --***********
 --* MAPPING *
 --***********
--- Connect ports to signals (PORT => SIGNAL)
-uut : ENTITY work.edgedetector(behavior)
+uut : ENTITY work.access_layer(behavior)
 	PORT MAP
 	(
-		data   => data,
-		puls   => puls,
-		clk    => clk,
-		clk_en => clk_en,
-		rst    => rst
+		clk       => clk,
+		clk_en    => clk_en,
+		rst       => rst,
+		data	  => data,
+		pn_select => pn_select,
+		pn_start => pn_start,
+		tx => tx
 	);
-
 -- Only for synchronous components
 clock : PROCESS
-	BEGIN
+BEGIN
 	clk <= '0';
 	WAIT FOR period/2;
 	LOOP
@@ -61,12 +64,12 @@ clock : PROCESS
 		WAIT FOR period/2;
 		clk <= '1';
 		WAIT FOR period/2;
-	EXIT WHEN end_of_sim;
+		EXIT WHEN end_of_sim;
 	END LOOP;
 	WAIT;
-END PROCESS clock;
+	END PROCESS clock;
 -- Testbench
-PROCESS
+tb : PROCESS
 	-- Reset procedure to initialize the component
 	PROCEDURE reset IS
 	BEGIN
@@ -75,21 +78,16 @@ PROCESS
 		rst <= '0';
 		WAIT FOR period;
 	END reset;
-	-- Test data procedure
-	PROCEDURE test (CONSTANT testdata : IN std_logic) IS
-	BEGIN
-		data <= testdata;
-		WAIT FOR period * 4;
-		END test;
 BEGIN
 	-- Reset at startup
 	reset;
 	-- Test data
-	test('0');
-	test('1');
-	test('0');
-	test('1');
+	FOR i IN 0 TO 3 LOOP
+		pn_select <= CONV_STD_LOGIC_VECTOR(i, 2);
+		data <= '1';
+		WAIT FOR period*10;
+	END LOOP;
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;
-END structural;
+END;
