@@ -11,9 +11,9 @@
 -- TESTBENCH: Counting up/down
 --2)Principle:
 -- When up or down input is high, count
---3)Inputs:
+--3)Ingangen:
 -- up, down, rst, clk, clk_en
---4)Outputs:
+--4)Uitgangen:
 -- output
 --**********************
 --* LIBRARIES & ENTITY *

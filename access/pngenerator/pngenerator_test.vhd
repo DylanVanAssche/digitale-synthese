@@ -1,9 +1,9 @@
---***********************************************
+--*******************************
 --* TITLE: PNGenerator TESTBENCH (sender)	*
---* TYPE: Component 		          	*
---* AUTHOR: Dylan Van Assche 	  		*
---* DATE: 12/10/2017 		         	*
---***********************************************
+--* TYPE: Component 		          *
+--* AUTHOR: Dylan Van Assche 	  *
+--* DATE: 12/10/2017 		         *
+--*******************************
 --* DESCRIPTION *
 --***************
 --1)Purpose:
@@ -13,7 +13,7 @@
 --3)Inputs:
 -- rst, clk, clk_en
 --4)Outputs:
--- pn_s, pn_1, pn_2, pn_3
+-- pn_start, pn_1, pn_2, pn_3
 --**********************
 --* LIBRARIES & ENTITY *
 --**********************
@@ -31,9 +31,9 @@ ARCHITECTURE structural OF pngenerator_test IS
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
 	SIGNAL end_of_sim : BOOLEAN := false;
-	SIGNAL clk        : std_logic;
+	SIGNAL clk        : std_logic := '0';
 	SIGNAL clk_en     : std_logic := '1';
-	SIGNAL rst        : std_logic;
+	SIGNAL rst        : std_logic := '0';
 	SIGNAL pn_1       : std_logic;
 	SIGNAL pn_2       : std_logic;
 	SIGNAL pn_3       : std_logic;
@@ -80,8 +80,9 @@ tb : PROCESS
 BEGIN
 	-- Reset at startup
 	reset;
-	-- Test runs automatically only a wait statement is required
+	-- Test data
 	WAIT FOR period*33;
+	
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;

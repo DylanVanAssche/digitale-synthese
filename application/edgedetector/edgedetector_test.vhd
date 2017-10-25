@@ -4,9 +4,9 @@
 --* AUTHOR: Dylan Van Assche 			*
 --* DATE: 05/10/2017 				*
 --***********************************************
---********************
+--***************
 --* DESCRIPTION *
---********************
+--***************
 --1)Purpose:
 -- Check if a signal goes from LOW to HIGH
 --2)Principle:

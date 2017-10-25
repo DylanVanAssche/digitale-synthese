@@ -4,9 +4,9 @@
 --* AUTHOR: Dylan Van Assche 		*
 --* DATE: 01/10/2017 			*
 --***************************************
---********************
+--***************
 --* DESCRIPTION *
---********************
+--***************
 --1)Purpose:
 -- TESTBENCH: Debouncing the input buttons.
 --2)Principle:

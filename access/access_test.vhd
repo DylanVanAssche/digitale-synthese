@@ -1,12 +1,12 @@
 --***************************************
---* TITLE: Access TESTBENCH (sender) 	*
---* TYPE: Component 			*
+--* TITLE: Access TESTBENCH (sender)	*
+--* TYPE: Top File 			*
 --* AUTHOR: Dylan Van Assche 		*
 --* DATE: 12/10/2017 			*
 --***************************************
---********************
+--***************
 --* DESCRIPTION *
---********************
+--***************
 --1)Purpose:
 -- TESTBENCH: Access layer API.
 --2)Principle:
@@ -32,9 +32,9 @@ ARCHITECTURE structural OF access_layer_test IS
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
 	SIGNAL end_of_sim : BOOLEAN := false;
-	SIGNAL clk        : std_logic;
+	SIGNAL clk        : std_logic := '0';
 	SIGNAL clk_en     : std_logic := '1';
-	SIGNAL rst        : std_logic;
+	SIGNAL rst        : std_logic := '0';
 	SIGNAL data	  : std_logic;
 	SIGNAL pn_select  : std_logic_vector(1 DOWNTO 0);
 	SIGNAL pn_start   : std_logic;
@@ -51,8 +51,8 @@ uut : ENTITY work.access_layer(behavior)
 		rst       => rst,
 		data	  => data,
 		pn_select => pn_select,
-		pn_start => pn_start,
-		tx => tx
+		pn_start  => pn_start,
+		tx        => tx
 	);
 -- Only for synchronous components
 clock : PROCESS
@@ -87,6 +87,7 @@ BEGIN
 		data <= '1';
 		WAIT FOR period*10;
 	END LOOP;
+
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;

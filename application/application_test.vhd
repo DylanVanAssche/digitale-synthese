@@ -1,12 +1,12 @@
 --***********************************************
---* TITLE: Application TESTBENCH (sender) 	*
---* TYPE: Component 				*
---* AUTHOR: Dylan Van Assche 			*
+--* TITLE: Application TESTBENCH (sender)	*
+--* TYPE: Top File 				*
+--* AUTHOR: Dylan Van Assche			*
 --* DATE: 01/10/2017 				*
 --***********************************************
---********************
+--***************
 --* DESCRIPTION *
---********************
+--***************
 --1)Purpose:
 -- TESTBENCH: Application layer API.
 --2)Principle:
@@ -22,12 +22,12 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
-ENTITY application_test IS
-END application_test;
+ENTITY application_layer_test IS
+END application_layer_test;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF application_test IS
+ARCHITECTURE structural OF application_layer_test IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
@@ -43,7 +43,7 @@ BEGIN
 --***********
 --* MAPPING *
 --***********
-uut : ENTITY work.application(behavior)
+uut : ENTITY work.application_layer(behavior)
 	PORT MAP
 	(
 		clk       => clk,
