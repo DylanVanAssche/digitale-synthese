@@ -1,14 +1,14 @@
 --***********************************************************************
 --* TITLE: Binary-To-7-Segment-Display decoder TESTBENCH (sender)	*
 --* TYPE: Component 							*
---* AUTHOR: Dylan Van Assche 						*
+--* AUTHOR: Dylan Van Assche						*
 --* DATE: 01/10/2017 							*
 --***********************************************************************
---********************
+--***************
 --* DESCRIPTION *
---********************
+--***************
 --1)Purpose:
--- TESTBENCH: Convert a 4 bit std_logic_vector to a 7 segment display output (active low)
+-- TESTBENCH: Convert a 4 bit STD_LOGIC_VECTOR to a 7 segment display output (active low)
 --2)Principle:
 -- Switch statement converts the binary data to HEX values which are understand by the 7 segment display
 --3)Inputs:

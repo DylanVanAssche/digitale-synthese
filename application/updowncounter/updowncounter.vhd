@@ -4,15 +4,16 @@
 --* AUTHOR: Dylan Van Assche 	*
 --* DATE: 01/10/2017 		*
 --*******************************
+--***************
 --* DESCRIPTION *
 --***************
 --1)Purpose:
 -- Counting up/down
 --2)Principle:
 -- When up or down input is high, count
---3)Inputs:
+--3)Ingangen:
 -- up, down, rst, clk, clk_en
---4)Outputs:
+--4)Uitgangen:
 -- output
 --**********************
 --* LIBRARIES & ENTITY *
@@ -34,27 +35,27 @@ END;
 --*********************************************
 ARCHITECTURE behavior OF counter IS
 BEGIN
-	output <= p_count;
-	-- 2-Process: synchronous part
-	count_sync : PROCESS (clk)
-	BEGIN
-		IF (rising_edge(clk) AND clk_en = '1') THEN
-			IF (rst = '1') THEN -- rst line high, go to initial state
-				p_count <= (OTHERS => '0');
-			ELSE -- normal operation
-				p_count <= n_count;
-			END IF;
+output <= p_count;
+-- 2-Process: synchronous part
+count_sync : PROCESS (clk)
+BEGIN
+	IF (rising_edge(clk) AND clk_en = '1') THEN
+		IF (rst = '1') THEN -- rst line high, go to initial state
+			p_count <= (OTHERS => '0');
+		ELSE -- normal operation
+			p_count <= n_count;
 		END IF;
-	END PROCESS count_sync;
-	-- 2-Process: combinatoric part
-	count_comb : PROCESS (p_count, up, down)
-	BEGIN
-		IF up = '1' AND down = '0' THEN -- count up
-			n_count <= p_count + 1;
-		ELSIF down = '1' AND up = '0' THEN -- count down
-			n_count <= p_count - 1;
-		ELSE
-			n_count <= p_count; -- halt
-		END IF;
-	END PROCESS count_comb;
+	END IF;
+END PROCESS count_sync;
+-- 2-Process: combinatoric part
+count_comb : PROCESS (p_count, up, down)
+BEGIN
+	IF up = '1' AND down = '0' THEN -- count up
+		n_count <= p_count + 1;
+	ELSIF down = '1' AND up = '0' THEN -- count down
+		n_count <= p_count - 1;
+	ELSE
+		n_count <= p_count; -- halt
+	END IF;
+END PROCESS count_comb;
 END behavior;

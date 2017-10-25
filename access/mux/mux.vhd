@@ -1,9 +1,9 @@
---*******************************
---* TITLE: MUX (sender)		*
---* TYPE: Component 		*
+--*****************************
+--* TITLE: MUX (sender) 	     *
+--* TYPE: Component 		        *
 --* AUTHOR: Dylan Van Assche 	*
---* DATE: 12/01/2017 		*
---*******************************
+--* DATE: 12/01/2017 		       *
+--*****************************
 --***************
 --* DESCRIPTION *
 --***************
@@ -12,7 +12,7 @@
 --2)Principle:
 -- Decode a dipswitch to select the right PN code
 --3)Inputs:
--- in_0, in_1, in_2, in_3, in_select
+-- 
 --4)Outputs:
 -- output
 --**********************
@@ -24,7 +24,7 @@ USE ieee.std_logic_unsigned.ALL;
 ENTITY mux IS
 	PORT
 	(
-		in_0, in_1, in_2, in_3  : IN std_logic; -- A std_logic_vector was also a solution but this is easier to connect in the top files.
+		in_0, in_1, in_2, in_3  : IN std_logic;
 		in_select               : IN std_logic_vector(1 DOWNTO 0);
 		output                  : OUT std_logic
 	);
