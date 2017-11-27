@@ -8,14 +8,13 @@
 --* DESCRIPTION *
 --***************
 --1)Purpose:
--- Read the serial data stream from the access layer and keep it for a limited time in a register.
--- Application layer will 'ask' if the preamble is in the register before it reads from it
+-- Read the data and preamble from the datashiftreg from the datalink layer only when preamble is valid
 --2)Principle:
--- When the shift signal is received, data is shifted out (1 place).
+-- When the preamble is found in the datashiftreg from the datalink layer we load the data into the latch to display on the 7 segment display
 --3)Inputs:
--- sh, serialdata, clk, clk_en, rst
+-- sh, data, preamble, clk, clk_en, rst
 --4)Outputs:
--- preamble, value
+-- value
 --**********************
 --* LIBRARIES & ENTITY *
 --**********************
@@ -23,46 +22,46 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
-ENTITY datareg IS
+ENTITY datalatch IS
   PORT (
 		sh         : IN  std_logic;
 		clk        : IN  std_logic;
 		clk_en     : IN  std_logic;
 		rst        : IN  std_logic;
-		serialdata : IN std_logic;
-		value      : OUT std_logic_vector(3 DOWNTO 0);
-		preamble   : OUT std_logic_logic(6 DOWNTO 0)
+		data       : IN std_logic;
+		value      : OUT std_logic_vector(3 DOWNTO 0); -- 4bits
+		preamble   : OUT std_logic_vector(6 DOWNTO 0) -- 7bits
     	 );
-END datareg;
+END datalatch;
 
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE behavior OF datareg IS
-	SIGNAL reg: std_logic_vector(9 DOWNTO 0);
-	SIGNAL reg_next: std_logic_vector(9 DOWNTO 0);
+ARCHITECTURE behavior OF datalatch IS
+	SIGNAL latch: std_logic_vector(3 DOWNTO 0);
+	SIGNAL latch_next: std_logic_vector(3 DOWNTO 0);
+	CONSTANT PREAMBLE: std_logic_vector(6 DOWNTO 0) := "0111110";
 BEGIN
 -- connect signal to output
-preamble <= reg(9 DOWNTO 4);
-value <= reg(3 DOWNTO 0);
+value <= latch;
 -- 2-Process: synchronous part
-reg_sync : PROCESS (clk)
+latch_sync : PROCESS (clk)
 BEGIN
 	IF (rising_edge(clk) AND clk_en = '1') THEN
 		IF (rst = '1') THEN -- rst line high, go to initial state
-			reg <= (OTHERS => '0');
+			latch <= (OTHERS => '0');
 		ELSE -- normal operation
-			reg <= reg_next;
+			latch <= latch_next;
 		END IF;
 	END IF;
-END PROCESS reg_sync;
+END PROCESS latch_sync;
 -- 2-Process: combinatoric part
-reg_comb : PROCESS(reg, sh)
+latch_comb : PROCESS(preamble, value)
 BEGIN
-	IF sh = '1' THEN -- shift data with serialdata as input
-		reg_next <= reg(9 DOWNTO 1) & serialdata;
-	ELSE -- Input signals wrong!
-		reg_next <= reg;
-	END IF;
-END PROCESS reg_comb;
+  IF (preamble = PREAMBLE) THEN -- preamble found, set value
+    latch_next <= value;
+  ELSE -- keeping value until preamble is found
+    latch_next <= latch;
+  END IF;
+END PROCESS latch_comb;
 END behavior;
