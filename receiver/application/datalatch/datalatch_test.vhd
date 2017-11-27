@@ -79,9 +79,9 @@ tb : PROCESS
 		WAIT FOR PERIOD;
 	END reset;
 	-- Test data procedure
-	PROCEDURE test (CONSTANT TESTDATA : IN std_logic_vector(1 DOWNTO 0)) IS
+	PROCEDURE test (CONSTANT TESTDATA : IN std_logic_vector(5 DOWNTO 0)) IS
 	BEGIN
-		data <= TESTDATA(0);
+		serialdata <= TESTDATA(0);
 		sh <= TESTDATA(1);
 		WAIT FOR PERIOD * 1;
 		sh <= '0';
