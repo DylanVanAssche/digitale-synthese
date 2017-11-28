@@ -8,9 +8,9 @@ This repository contains the VHDL files for the course "Digital Synthese: practi
 	- application layer: EdgeDetector, UpDownCounter, Debouncer, SegDecoder 
 
 - Receiver (top file)
-	- access layer: 7SegmentDecoder, DataLatch
+	- access layer: SegDecoder, DataLatch
 	- datalink layer: DataShiftReg
-	- application layer: DPLL, MatchFilter, Correlator, Despreader, MUX, PNGenerator
+	- application layer: DPLL, MatchedFilter, Correlator, Despreader, MUX, PNGenerator
 
 ## License
 Everything in this repository is available under the GPLv3 License.
