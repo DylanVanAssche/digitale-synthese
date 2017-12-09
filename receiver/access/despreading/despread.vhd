@@ -29,7 +29,7 @@ ENTITY despreader IS
 		rst          : IN  std_logic;
 		sdi_spread   : IN  std_logic;
 		pn_code      : IN  std_logic;
-		chip_sample  : IN  std_logic;
+		chipsample   : IN  std_logic;
 		sdi_despread : OUT std_logic
     	 );
 END despreader;
@@ -46,7 +46,7 @@ sdi_despread <= despread;
 -- 2-Process: synchronous part
 despread_sync : PROCESS (clk)
 BEGIN
-	IF (rising_edge(clk) AND clk_en = '1' AND chip_sample = '1') THEN
+	IF (rising_edge(clk) AND clk_en = '1' AND chipsample = '1') THEN
 		IF (rst = '1') THEN -- rst line high, go to initial state
 			despread <= '0';
 		ELSE -- normal operation

@@ -37,8 +37,8 @@ ARCHITECTURE structural OF correlator_test IS
 	SIGNAL clk             : std_logic := '0';
 	SIGNAL clk_en          : std_logic := '1';
 	SIGNAL rst             : std_logic := '0';
-	SIGNAL chip_sample     : std_logic := '0';
-	SIGNAL bit_sample      : std_logic := '0';
+	SIGNAL chipsample     : std_logic := '0';
+	SIGNAL bitsample      : std_logic := '0';
 	SIGNAL sdi_despread    : std_logic := '0';
 	SIGNAL databit         : std_logic := '0';
 BEGIN
@@ -51,8 +51,8 @@ uut : ENTITY work.correlator(behavior)
 		clk          => clk,
 		clk_en       => clk_en,
 		rst          => rst,
-		chip_sample  => chip_sample,
-		bit_sample   => bit_sample,
+		chipsample   => chipsample,
+		bitsample    => bitsample,
 		sdi_despread => sdi_despread,
 		databit      => databit
 	);
@@ -83,8 +83,8 @@ tb : PROCESS
 	-- Test data procedure
 	PROCEDURE test (CONSTANT TESTBIT : IN std_logic; CONSTANT TESTCHIP: IN std_logic; CONSTANT TESTDATA: IN std_logic) IS
 	BEGIN
-		bit_sample <= TESTBIT;
-		chip_sample <= TESTCHIP;
+		bitsample <= TESTBIT;
+		chipsample <= TESTCHIP;
 		sdi_despread <= TESTDATA;
 		WAIT FOR PERIOD;
 	END test;
@@ -101,6 +101,10 @@ BEGIN
 		test('0', '1', '0');
 	END LOOP;
 	test('1', '0', '0'); -- show databit
+	-- Nothing may happen now:
+	clk_en <= '0';
+	test('0', '1', '0');
+	WAIT FOR PERIOD;
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;
