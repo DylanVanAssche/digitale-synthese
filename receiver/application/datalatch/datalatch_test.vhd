@@ -23,36 +23,39 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
-ENTITY datareg_test IS
-END datareg_test;
+ENTITY datalatch_test IS
+END datalatch_test;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF datareg_test IS
+ARCHITECTURE structural OF datalatch_test IS
 	--initialize signals & constants
-	CONSTANT PERIOD   : TIME := 100 ns;
-	CONSTANT DELAY    : TIME := 10 ns;
-	SIGNAL end_of_sim : BOOLEAN := false;
-	SIGNAL clk        : std_logic := '0';
-	SIGNAL clk_en     : std_logic := '1';
-	SIGNAL rst        : std_logic := '0';
-	SIGNAL sh	        : std_logic := '0';
-	SIGNAL value	     : std_logic_vector(3 DOWNTO 0) := (OTHERS => '0'); -- counter value part register
-	SIGNAL preamble	  : std_logic_vector(6 DOWNTO 0) := (OTHERS => '0'); -- preamble part register
+	CONSTANT PERIOD		: TIME := 100 ns;
+	CONSTANT DELAY		: TIME := 10 ns;
+	SIGNAL end_of_sim	: BOOLEAN := false;
+	SIGNAL clk		: std_logic := '0';
+	SIGNAL clk_en		: std_logic := '1';
+	SIGNAL rst		: std_logic := '0';
+	SIGNAL bitsample	: std_logic := '1';
+	SIGNAL preamble		: std_logic_vector(6 DOWNTO 0) := (OTHERS => '0'); -- preamble input from datashiftreg datalink layer
+	SIGNAL data_in		: std_logic_vector(3 DOWNTO 0) := (OTHERS => '0'); -- data input from datashiftreg datalink layer
+	SIGNAL data_out		: std_logic_vector(3 DOWNTO 0) := (OTHERS => '0'); -- valid data
+	-- preamble valid code:
+	CONSTANT PREAMBLE_VALUE	: std_logic_vector(6 DOWNTO 0) := "0111110";
 BEGIN
 --***********
 --* MAPPING *
 --***********
-uut : ENTITY work.datareg(behavior)
+uut : ENTITY work.datalatch(behavior)
 	PORT MAP
 	(
 		clk        => clk,
 		clk_en     => clk_en,
 		rst        => rst,
-		sh         => sh,
-		serialdata => serialdata,
-		value      => value,
-		preamble   => preamble
+		bitsample  => bitsample,
+		preamble   => preamble,
+		data_in    => data_in,
+		data_out   => data_out 
 	);
 -- Only for synchronous components
 clock : PROCESS
@@ -79,30 +82,30 @@ tb : PROCESS
 		WAIT FOR PERIOD;
 	END reset;
 	-- Test data procedure
-	PROCEDURE test (CONSTANT TESTDATA : IN std_logic_vector(5 DOWNTO 0)) IS
+	PROCEDURE test (CONSTANT TESTPREAMBLE: IN std_logic_vector(6 DOWNTO 0); CONSTANT TESTDATA: IN std_logic_vector(3 DOWNTO 0)) IS
 	BEGIN
-		serialdata <= TESTDATA(0);
-		sh <= TESTDATA(1);
-		WAIT FOR PERIOD * 1;
-		sh <= '0';
-		WAIT FOR PERIOD * 5; -- normally 31 clock cycles for sequence controller (PN_START)
+		preamble <= TESTPREAMBLE;
+		data_in <= TESTDATA;
+		WAIT FOR PERIOD;
 	END test;
 BEGIN
 	-- Reset at startup
 	reset;
-	-- Test data TO DO
-	FOR counter IN 0 TO 3 LOOP -- 3 cycles with 3 different counter values
-		FOR i IN 0 TO 10 LOOP -- imitate sequencecontroller
-			IF(i = 0) THEN -- load
-				test(CONV_STD_LOGIC_VECTOR(counter, 4) & "01");
-			ELSE -- shift
-				test(CONV_STD_LOGIC_VECTOR(counter, 4) & "10");
-			END IF;
-		END LOOP;
-	END LOOP;
-	clk_en <= '0'; -- disable clock
-	test(CONV_STD_LOGIC_VECTOR(5, 4) & "10");
-	test(CONV_STD_LOGIC_VECTOR(6, 4) & "01");
+	-- Test data
+	-- output = input
+	test(PREAMBLE_VALUE, "0001");
+	test(PREAMBLE_VALUE, "0010");
+	-- remember old output
+	test("0011111", "0100");
+	test("0110110", "1000");
+	-- nothing may happen now:
+	clk_en <= '0';
+	test(PREAMBLE_VALUE, "1010");
+	WAIT FOR PERIOD*3;
+	clk_en <= '1';
+	bitsample <= '0';
+	test(PREAMBLE_VALUE, "1111");
+	WAIT FOR PERIOD*3;
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;
