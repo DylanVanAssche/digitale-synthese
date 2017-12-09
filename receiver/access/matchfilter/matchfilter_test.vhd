@@ -1,14 +1,14 @@
---*************************************
---* TITLE: Matched Filter (receiver)  *
---* TYPE: Component 		                *
---* AUTHOR: Dylan Van Assche 	        *
---* DATE: 28/11/2017 		               *
---*************************************
+--***********************************************
+--* TITLE: Matched Filter TESTBENCH (receiver)  *
+--* TYPE: Component 		      		*
+--* AUTHOR: Dylan Van Assche 	      		*
+--* DATE: 28/11/2017 		      		*
+--***********************************************
 --***************
 --* DESCRIPTION *
 --***************
 --1)Purpose:
--- Filter PN code sequences from noisy sdi_spread signal
+-- TESTBENCH: Filter PN code sequences from noisy sdi_spread signal
 --2)Principle:
 -- Using a MUX we select the right PN code on the receiver, 
 -- when the shift register contains the PN code that we selected, 

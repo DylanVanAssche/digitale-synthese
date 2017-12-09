@@ -1,14 +1,14 @@
---***************************************
+--***********************************************
 --* TITLE: Despreader TESTBENCH (receiver)	*
---* TYPE: Component 			*
---* AUTHOR: Dylan Van Assche 		*
---* DATE: 14/11/2017 			*
---***************************************
+--* TYPE: Component 				*
+--* AUTHOR: Dylan Van Assche 			*
+--* DATE: 14/11/2017 				*
+--***********************************************
 --***************
 --* DESCRIPTION *
 --***************
 --1)Purpose:
--- EXOR'ing with noise reduction
+-- TESTBENCH: EXOR'ing with noise reduction
 --2)Principle:
 -- Timed EXOR'ing which is synced to the DPLL to reduce the noise on sdi_spread.
 --3)Inputs:

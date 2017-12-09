@@ -1,8 +1,8 @@
 --*************************************
 --* TITLE: Matched Filter (receiver)  *
---* TYPE: Component 		                *
---* AUTHOR: Dylan Van Assche 	        *
---* DATE: 21/11/2017 		               *
+--* TYPE: Component 		      *
+--* AUTHOR: Dylan Van Assche 	      *
+--* DATE: 21/11/2017 		      *
 --*************************************
 --***************
 --* DESCRIPTION *
