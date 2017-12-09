@@ -33,19 +33,19 @@ ENTITY access_layer IS
 	);
 END access_layer;
 ARCHITECTURE behavior OF access_layer IS
-	SIGNAL chipsample_1	: std_logic;
-	SIGNAL chipsample_2	: std_logic;
-	SIGNAL chipsample_3	: std_logic;
-	SIGNAL bitsample	: std_logic;
-	SIGNAL matchfilter_out	: std_logic;
-	SIGNAL despreader_out	: std_logic;
-	SIGNAL seq_det		: std_logic;
-	SIGNAL pn_1		: std_logic;
-	SIGNAL pn_2		: std_logic;
-	SIGNAL pn_3		: std_logic;
-	SIGNAL pn_seq		: std_logic;
-	SIGNAL sdi_despread	: std_logic;
-	SIGNAL extb		: std_logic;
+	SIGNAL chipsample_1	: std_logic := '1';
+	SIGNAL chipsample_2	: std_logic := '1';
+	SIGNAL chipsample_3	: std_logic := '1';
+	SIGNAL bitsample	: std_logic := '0';
+	SIGNAL matchfilter_out	: std_logic := '0';
+	SIGNAL despreader_out	: std_logic := '0';
+	SIGNAL seq_det		: std_logic := '0';
+	SIGNAL pn_1		: std_logic := '0';
+	SIGNAL pn_2		: std_logic := '0';
+	SIGNAL pn_3		: std_logic := '0';
+	SIGNAL pn_seq		: std_logic := '0';
+	SIGNAL sdi_despread	: std_logic := '0';
+	SIGNAL extb		: std_logic := '0';
 BEGIN
 -- Connect signals to outputs
 bitsample_out <= bitsample;
@@ -59,7 +59,8 @@ PORT MAP
 	sdi_spread	=> sdi_spread,
 	chipsample_1	=> chipsample_1,
 	chipsample_2	=> chipsample_2,
-	chipsample_3	=> chipsample_3
+	chipsample_3	=> chipsample_3,
+	extb_out	=> extb
 );
 matchfilter : ENTITY work.matchfilter(behavior)
 PORT MAP

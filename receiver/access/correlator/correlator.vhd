@@ -74,8 +74,10 @@ BEGIN
 	-- load dataregister on bitsample with counter value
 	IF (bitsample = '1' AND p_count(5) = '1' ) THEN --MSB = 1 then at least 32 or higher
 		n_reg <= '1';
+		n_count <= "100000"; -- reset to 32
 	ELSIF (bitsample = '1' AND p_count(5) = '0' ) THEN --MSB = 0 then at max 31 or lower
 		n_reg <= '0';
+		n_count <= "100000"; -- reset to 32
 	ELSE -- all other cases, do nothing
 		n_reg <= p_reg;
 	END IF;

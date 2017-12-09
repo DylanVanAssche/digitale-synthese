@@ -23,7 +23,7 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
 ENTITY despreader IS
-  PORT (
+	PORT (
 		clk          : IN  std_logic;
 		clk_en       : IN  std_logic;
 		rst          : IN  std_logic;
@@ -38,8 +38,8 @@ END despreader;
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
 ARCHITECTURE behavior OF despreader IS
-	SIGNAL despread: std_logic;
-	SIGNAL despread_next: std_logic;
+	SIGNAL despread		: std_logic := '0';
+	SIGNAL despread_next	: std_logic;
 BEGIN
 -- connect signal to output
 sdi_despread <= despread;

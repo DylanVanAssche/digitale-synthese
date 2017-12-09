@@ -96,11 +96,14 @@ BEGIN
 		test('0', '1', '1');
 	END LOOP;
 	test('1', '0', '0'); -- show databit
-	
-	FOR i IN 0 TO 60 LOOP
+	test('0', '0', '0'); -- wait
+	WAIT FOR PERIOD*3;
+	FOR i IN 0 TO 30 LOOP
 		test('0', '1', '0');
 	END LOOP;
 	test('1', '0', '0'); -- show databit
+	test('0', '0', '0'); -- wait
+	WAIT FOR PERIOD*3;
 	-- Nothing may happen now:
 	clk_en <= '0';
 	test('0', '1', '0');
