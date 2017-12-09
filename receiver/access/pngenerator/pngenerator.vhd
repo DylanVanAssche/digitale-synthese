@@ -41,14 +41,14 @@ END;
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
 ARCHITECTURE behavior OF pngenerator IS
-	SIGNAL shdata1          : std_logic_vector(4 DOWNTO 0);
+	SIGNAL shdata1          : std_logic_vector(4 DOWNTO 0) := "00010";
 	SIGNAL shdata1_next     : std_logic_vector(4 DOWNTO 0) := (OTHERS => '0');
-	SIGNAL shdata2          : std_logic_vector(4 DOWNTO 0);
+	SIGNAL shdata2          : std_logic_vector(4 DOWNTO 0) := "00111";
 	SIGNAL shdata2_next     : std_logic_vector(4 DOWNTO 0) := (OTHERS => '0');
 	SIGNAL full_seq_next    : std_logic;
-	SIGNAL full_seq         : std_logic;
-	SIGNAL linear_feedback1 : std_logic;
-	SIGNAL linear_feedback2 : std_logic;
+	SIGNAL full_seq         : std_logic := '0';
+	SIGNAL linear_feedback1 : std_logic := '0';
+	SIGNAL linear_feedback2 : std_logic := '0';
 BEGIN
 -- calculate linear feedback for both PN counters (LFSR)
 linear_feedback1 <= (shdata1(0) XOR shdata1(3));
