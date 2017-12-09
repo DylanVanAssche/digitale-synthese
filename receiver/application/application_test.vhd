@@ -37,7 +37,7 @@ ARCHITECTURE structural OF application_layer_test IS
 	SIGNAL rst             : std_logic := '1';
 	SIGNAL bitsample       : std_logic := '1';
 	SIGNAL preamble        : std_logic_vector(6 DOWNTO 0) := "0000000";
-	SIGNAL value           : std_logic_vector(3 DOWNTO 0) := "0000";
+	SIGNAL data_in         : std_logic_vector(3 DOWNTO 0) := "0000";
 	SIGNAL display_b       : std_logic_vector(6 DOWNTO 0) := "0000000";
 	CONSTANT PREAMBLE_CODE : std_logic_vector(6 DOWNTO 0) := "0111110";
 BEGIN
@@ -52,7 +52,7 @@ uut : ENTITY work.application_layer(behavior)
 		rst       => rst,
 		bitsample => bitsample,
 		preamble  => preamble,
-		value     => value,
+		data_in   => data_in,
 		display_b => display_b
 	);
 -- Only for synchronous components
@@ -83,8 +83,8 @@ tb : PROCESS
 	PROCEDURE test (CONSTANT TESTDATA : IN std_logic_vector(10 DOWNTO 0)) IS
 	BEGIN
 		preamble <= TESTDATA(10 DOWNTO 4);
-		value <= TESTDATA(3 DOWNTO 0);
-		WAIT FOR PERIOD * 1;
+		data_in <= TESTDATA(3 DOWNTO 0);
+		WAIT FOR PERIOD;
 	END test;
 BEGIN
 	-- Reset at startup
