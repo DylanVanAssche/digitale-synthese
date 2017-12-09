@@ -30,8 +30,8 @@ ENTITY correlator IS
 		clk_en       : IN  std_logic;
 		rst          : IN  std_logic;
 		sdi_despread : IN  std_logic;
-		bit_sample   : IN  std_logic;
-		chip_sample  : IN  std_logic;
+		bitsample    : IN  std_logic;
+		chipsample   : IN  std_logic;
 		databit      : OUT std_logic
   	 );
 END correlator;
@@ -61,20 +61,20 @@ BEGIN
 	END IF;
 END PROCESS correlator_sync;
 -- 2-Process: combinatoric part
-correlator_comb : PROCESS(bit_sample, chip_sample, sdi_despread, p_count, p_reg)
+correlator_comb : PROCESS(bitsample, chipsample, sdi_despread, p_count, p_reg)
 BEGIN
 	-- up/down counter on chip_sample
-	IF (sdi_despread = '1' AND chip_sample = '1') THEN -- count up
+	IF (sdi_despread = '1' AND chipsample = '1') THEN -- count up
 		n_count <= p_count + 1;   
-	ELSIF (sdi_despread = '0' AND chip_sample = '1') THEN -- count down
+	ELSIF (sdi_despread = '0' AND chipsample = '1') THEN -- count down
 		n_count <= p_count - 1;
 	ELSE -- all other cases, do nothing
 		n_count <= p_count;
 	END IF;
 	-- load dataregister on bitsample with counter value
-	IF (bit_sample = '1' AND p_count(5) = '1' ) THEN --MSB = 1 then at least 32 or higher
+	IF (bitsample = '1' AND p_count(5) = '1' ) THEN --MSB = 1 then at least 32 or higher
 		n_reg <= '1';
-	ELSIF (bit_sample = '1' AND p_count(5) = '0' ) THEN --MSB = 0 then at max 31 or lower
+	ELSIF (bitsample = '1' AND p_count(5) = '0' ) THEN --MSB = 0 then at max 31 or lower
 		n_reg <= '0';
 	ELSE -- all other cases, do nothing
 		n_reg <= p_reg;

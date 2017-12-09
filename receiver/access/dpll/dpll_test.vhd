@@ -44,6 +44,7 @@ ARCHITECTURE structural OF dpll_test IS
 	SIGNAL chipsample_1    : std_logic := '0';
 	SIGNAL chipsample_2    : std_logic := '0';
 	SIGNAL chipsample_3    : std_logic := '0';
+	SIGNAL extb_out	       : std_logic := '0';
 BEGIN
 --***********
 --* MAPPING *
@@ -57,7 +58,8 @@ uut : ENTITY work.dpll(behavior)
 		sdi_spread	=> sdi_spread,
 		chipsample_1	=> chipsample_1,
 		chipsample_2	=> chipsample_2,
-		chipsample_3	=> chipsample_3
+		chipsample_3	=> chipsample_3,
+		extb_out	=> extb_out
 	);
 -- Only for synchronous components
 clock : PROCESS

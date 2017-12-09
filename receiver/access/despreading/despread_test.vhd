@@ -35,7 +35,7 @@ ARCHITECTURE structural OF despreader_test IS
 	SIGNAL clk             : std_logic := '0';
 	SIGNAL clk_en          : std_logic := '1';
 	SIGNAL rst             : std_logic := '0';
-	SIGNAL chip_sample     : std_logic := '1';
+	SIGNAL chipsample      : std_logic := '1';
 	SIGNAL sdi_spread      : std_logic := '0';
 	SIGNAL pn_code         : std_logic := '0';
 	SIGNAL sdi_despread    : std_logic := '0';
@@ -51,7 +51,7 @@ uut : ENTITY work.despreader(behavior)
 		rst          => rst,
 		sdi_spread   => sdi_spread,
 		pn_code      => pn_code,
-		chip_sample  => chip_sample,
+		chipsample   => chipsample,
 		sdi_despread => sdi_despread
 	);
 -- Only for synchronous components
@@ -92,6 +92,14 @@ BEGIN
 	FOR i IN 0 TO 3 LOOP
 		test(CONV_STD_LOGIC_VECTOR(i, 2));
 	END LOOP;
+	-- Nothing may happen now:
+	chipsample <= '0';
+	test("01");
+	WAIT FOR PERIOD;
+	chipsample <= '1';
+	clk_en <= '0';
+	test("11");
+	WAIT FOR PERIOD;
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;

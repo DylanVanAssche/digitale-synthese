@@ -29,13 +29,14 @@ USE ieee.std_logic_unsigned.ALL;
 
 ENTITY dpll IS
 	PORT (
-		clk          : IN  std_logic;
-		clk_en       : IN  std_logic;
-		rst          : IN  std_logic;
-		sdi_spread   : IN  std_logic;
-		chipsample_1 : OUT std_logic;
-		chipsample_2 : OUT std_logic;
-		chipsample_3 : OUT std_logic
+		clk		: IN  std_logic;
+		clk_en		: IN  std_logic;
+		rst		: IN  std_logic;
+		sdi_spread	: IN  std_logic;
+		chipsample_1	: OUT std_logic;
+		chipsample_2	: OUT std_logic;
+		chipsample_3	: OUT std_logic;
+		extb_out	: OUT std_logic
   	 );
 END dpll;
 
@@ -48,7 +49,10 @@ ARCHITECTURE behavior OF dpll IS
 	SIGNAL segments_periodcounter	: std_logic_vector(4 DOWNTO 0);
 	SIGNAL segments_semaphore	: std_logic_vector(4 DOWNTO 0);
 BEGIN
+-- Map signals to outputs
 chipsample_1 <= chipsample_semaphore;
+extb_out <= extb;
+-- DPLL parts
 transdect : ENTITY work.dpll_transdect(behavior)
 	PORT MAP
 	(
