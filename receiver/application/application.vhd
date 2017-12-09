@@ -28,7 +28,7 @@ ENTITY application_layer IS
 		rst       : IN std_logic;
 		bitsample : IN std_logic;
 		preamble  : IN std_logic_vector(6 DOWNTO 0);
-		value     : IN std_logic_vector(3 DOWNTO 0);
+		data_in   : IN std_logic_vector(3 DOWNTO 0);
 		display_b : OUT std_logic_vector(6 DOWNTO 0)
 	);
 END application_layer;
@@ -38,13 +38,13 @@ BEGIN
 datalatch : ENTITY work.datalatch(behavior)
 PORT MAP
 (
-  clk        => clk,
+  	clk        => clk,
 	clk_en     => clk_en,
 	rst        => rst,
 	bitsample  => bitsample,
-	value_in   => value,
+	data_in    => data_in,
 	preamble   => preamble,
-	value_out  => data_out
+	data_out  => data_out
 );
 decoder : ENTITY work.decoder(behavior)
 PORT MAP
