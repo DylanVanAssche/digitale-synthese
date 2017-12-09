@@ -29,8 +29,8 @@ END application_layer_test;
 --*********************************************
 ARCHITECTURE structural OF application_layer_test IS
 	--initialize signals & constants
-	CONSTANT period        : TIME := 100 ns;
-	CONSTANT delay         : TIME := 10 ns;
+	CONSTANT PERIOD        : TIME := 100 ns;
+	CONSTANT DELAY         : TIME := 10 ns;
 	SIGNAL end_of_sim      : BOOLEAN := false;
 	SIGNAL clk             : std_logic := '0';
 	SIGNAL clk_en          : std_logic := '1';
@@ -59,12 +59,12 @@ uut : ENTITY work.application_layer(behavior)
 clock : PROCESS
 BEGIN
 	clk <= '0';
-	WAIT FOR period/2;
+	WAIT FOR PERIOD/2;
 	LOOP
 		clk <= '0';
-		WAIT FOR period/2;
+		WAIT FOR PERIOD/2;
 		clk <= '1';
-		WAIT FOR period/2;
+		WAIT FOR PERIOD/2;
 		EXIT WHEN end_of_sim;
 	END LOOP;
 	WAIT;
@@ -75,9 +75,9 @@ tb : PROCESS
 	PROCEDURE reset IS
 	BEGIN
 		rst <= '1';
-		WAIT FOR period * 2;
+		WAIT FOR PERIOD * 2;
 		rst <= '0';
-		WAIT FOR period;
+		WAIT FOR PERIOD;
 	END reset;
 	-- Test data procedure
 	PROCEDURE test (CONSTANT TESTDATA : IN std_logic_vector(10 DOWNTO 0)) IS
@@ -92,16 +92,16 @@ BEGIN
 	-- Test data
 	test(PREAMBLE_CODE & "0101");
 	test(PREAMBLE_CODE & "1111");
-	WAIT FOR period;
+	WAIT FOR PERIOD;
 	
 	test("0000000" & "0100");
 	test(PREAMBLE_CODE & "0001");
-	WAIT FOR period;
+	WAIT FOR PERIOD;
 	
 	bitsample <= '0'; -- disable bitsample 'clock'
 	test("0000000" & "0110");
 	test(PREAMBLE_CODE & "1001");
-	WAIT FOR period;
+	WAIT FOR PERIOD;
 	
 	clk_en <= '0'; -- disable clock
 	test(PREAMBLE_CODE & "0101");
