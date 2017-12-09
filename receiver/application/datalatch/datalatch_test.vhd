@@ -1,14 +1,14 @@
 --***********************************************
 --* TITLE: Dataregister TESTBENCH (receiver)	*
---* TYPE: Component 			*
---* AUTHOR: Dylan Van Assche 		*
---* DATE: 26/10/2017 			*
---***************************************
+--* TYPE: Component 				*
+--* AUTHOR: Dylan Van Assche 			*
+--* DATE: 26/10/2017 				*
+--***********************************************
 --***************
 --* DESCRIPTION *
 --***************
 --1)Purpose:
--- Read the serial data stream from the access layer and keep it for a limited time in a register.
+-- TESTBENCH: Read the serial data stream from the access layer and keep it for a limited time in a register.
 -- Application layer will 'ask' if the preamble is in the register before it reads from it
 --2)Principle:
 -- When the shift signal is received, data is shifted out (1 place).

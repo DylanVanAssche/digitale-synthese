@@ -1,5 +1,5 @@
 --***************************************
---* TITLE: Datalatch (receiver)	*
+--* TITLE: Datalatch (receiver)		*
 --* TYPE: Component 			*
 --* AUTHOR: Dylan Van Assche 		*
 --* DATE: 26/10/2017 			*

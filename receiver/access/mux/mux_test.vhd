@@ -8,7 +8,7 @@
 --* DESCRIPTION *
 --***************
 --1)Purpose:
--- Selecting the right PN code
+-- TESTBENCH: Selecting the right PN code
 --2)Principle:
 -- Decode a dipswitch to select the right PN code
 --3)Inputs:
