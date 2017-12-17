@@ -1,0 +1,75 @@
+#************************************************
+#* TITLE: XUP DSSS board (hardware file)	*
+#* TYPE: UCF File				*
+#* AUTHOR: Dylan Van Assche 			*
+#* DATE: 17/12/2017 				*
+#************************************************
+
+#****************
+#* CLOCK 100MHz *
+#****************
+Net clk_100mhz LOC="AJ15";
+Net clk_100mhz IOSTANDARD = LVCMOS25;
+Net clk_100mhz PERIOD = 10000 ps;
+
+#*********************
+#* 7 SEGMENT DISPLAY *
+#*********************
+#
+#      A
+#   -------
+#   |     |
+# F |     | B
+#   |  G  |
+#   -------
+#   |     |
+# E |     | C
+#   |  D  |
+#   -------
+#
+NET "segment_a" LOC = "R7"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_b" LOC = "P2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_c" LOC = "R2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_d" LOC = "T2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_e" LOC = "P4"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_f" LOC = "P5"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_g" LOC = "R8"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "segment_dp" LOC = "R6" | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#****************
+#* PUSH BUTTONS *
+#****************
+# WARNING: active LOW!
+NET "up" LOC = "N3"   | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "down" LOC = "N4" | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "rst" LOC = "P7"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#****************
+#* DIP SWITCHES *
+#****************
+# WARNING: active LOW!
+NET "dip_switch1" LOC = "N1"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "dip_switch2" LOC = "M3"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#******************
+#* ROTARY ENCODER *
+#******************
+NET "channel_a" LOC = "T6"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "channel_b" LOC = "V1"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#*************
+#* DATA PINS *
+#*************
+NET "tx_data" LOC = "N5"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "rx_data" LOC = "N6"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#**************
+#* TESTPOINTS *
+#**************
+NET "TP1" LOC = "U3"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "TP2" LOC = "T7"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "TP3" LOC = "T4"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "TP4" LOC = "U2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+
+
