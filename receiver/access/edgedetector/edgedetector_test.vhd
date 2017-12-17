@@ -21,12 +21,12 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
-ENTITY edgedetector_test_tx IS
-END edgedetector_test_tx;
+ENTITY edgedetector_test IS
+END edgedetector_test;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF edgedetector_test_tx IS
+ARCHITECTURE structural OF edgedetector_test IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
@@ -41,7 +41,7 @@ BEGIN
 --* MAPPING *
 --***********
 -- Connect ports to signals (PORT => SIGNAL)
-uut : ENTITY work.edgedetector_tx(behavior)
+uut : ENTITY work.edgedetector(behavior)
 	PORT MAP
 	(
 		data   => data,

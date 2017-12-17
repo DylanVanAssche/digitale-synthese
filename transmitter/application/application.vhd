@@ -20,7 +20,7 @@
 --**********************
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
-ENTITY application_layer IS
+ENTITY application_layer_tx IS
 	PORT
 	(
 		clk       : IN std_logic;
@@ -31,12 +31,12 @@ ENTITY application_layer IS
 		output    : OUT std_logic_vector(3 DOWNTO 0);
 		display_b : OUT std_logic_vector(6 DOWNTO 0)
 	);
-END application_layer;
-ARCHITECTURE behavior OF application_layer IS
+END application_layer_tx;
+ARCHITECTURE behavior OF application_layer_tx IS
 	SIGNAL counter_output     : std_logic_vector(3 DOWNTO 0);
 	SIGNAL btn_up_debounced   : std_logic;
 	SIGNAL btn_down_debounced : std_logic;
-	SIGNAL btn_up_edged   	  : std_logic;
+	SIGNAL btn_up_edged   	   : std_logic;
 	SIGNAL btn_down_edged     : std_logic;
 BEGIN
 output <= counter_output;
@@ -70,7 +70,7 @@ PORT MAP
 edge_down : ENTITY work.edgedetector(behavior)
 PORT MAP
 (
-	data   => btn_up_debounced,
+	data   => btn_down_debounced,
 	puls   => btn_down_edged,
 	clk    => clk,
 	clk_en => clk_en,

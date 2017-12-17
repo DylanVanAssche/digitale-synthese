@@ -23,23 +23,30 @@ USE IEEE.std_logic_1164.ALL;
 ENTITY transmitter IS
 	PORT
 	(
-		clk       : IN std_logic;
-		clk_en    : IN std_logic;
-		rst       : IN std_logic;
-		up	  : IN std_logic;
-		down	  : IN std_logic;
-		pn_select : IN std_logic_vector(1 DOWNTO 0);
-		display_b : OUT std_logic_vector(6 DOWNTO 0);
-		tx	  : OUT std_logic
+		clk		: IN std_logic;
+		rst		: IN std_logic;
+		up		: IN std_logic;
+		down		: IN std_logic;
+		pn_select	: IN std_logic_vector(1 DOWNTO 0);
+		display_b	: OUT std_logic_vector(6 DOWNTO 0);
+		tx		: OUT std_logic
 	);
 END transmitter ;
 ARCHITECTURE behavior OF transmitter IS
-	SIGNAL counter : std_logic_vector(3 DOWNTO 0);
-	SIGNAL pn_start : std_logic;
-	SIGNAL payload : std_logic;
+	SIGNAL pn_start	: std_logic;
+	SIGNAL payload	: std_logic;
+	SIGNAL clk_en	: std_logic := '1'; -- allow reset without NCO
+	SIGNAL counter	: std_logic_vector(3 DOWNTO 0);
 BEGIN
 --layers
-application_layer : ENTITY work.application_layer(behavior)
+nco_tx : ENTITY work.nco_tx(behavior)
+PORT MAP
+(
+	clk    => clk,
+	rst    => rst,
+	clk_en => clk_en
+);
+application_layer_tx : ENTITY work.application_layer_tx(behavior)
 PORT MAP
 (
 	clk        => clk,
@@ -50,7 +57,7 @@ PORT MAP
 	display_b  => display_b,
 	output     => counter
 );
-datalink_layer : ENTITY work.datalink_layer(behavior)
+datalink_layer_tx : ENTITY work.datalink_layer_tx(behavior)
 PORT MAP
 (
 	clk      => clk,
@@ -60,7 +67,7 @@ PORT MAP
 	output   => payload,
 	data     => counter         
 );
-access_layer : ENTITY work.access_layer(behavior)
+access_layer_tx : ENTITY work.access_layer_tx(behavior)
 PORT MAP
 (
 	clk       => clk,

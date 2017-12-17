@@ -37,7 +37,7 @@ END debouncer;
 ARCHITECTURE behavior OF debouncer IS
 	SIGNAL reg      : std_logic_vector(3 DOWNTO 0) := (OTHERS => '0');
 	SIGNAL reg_next : std_logic_vector(3 DOWNTO 0) := (OTHERS => '0');
-	SIGNAL sh_ldb   : std_logic;
+	SIGNAL sh_ldb   : std_logic := '0';
 BEGIN
 -- output of the shiftreg asigned to syncha (signal -> output)
 syncha <= reg(0);

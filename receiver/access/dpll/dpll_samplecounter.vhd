@@ -42,17 +42,17 @@ END dpll_samplecounter;
 --*********************************************
 ARCHITECTURE behavior OF dpll_samplecounter IS
 	-- Segment codes for decoder
-	CONSTANT SEG_A			: std_logic_vector(4 DOWNTO 0) := "10000";
-	CONSTANT SEG_B			: std_logic_vector(4 DOWNTO 0) := "01000";
-	CONSTANT SEG_C			: std_logic_vector(4 DOWNTO 0) := "00100";
-	CONSTANT SEG_D			: std_logic_vector(4 DOWNTO 0) := "00010";
-	CONSTANT SEG_E			: std_logic_vector(4 DOWNTO 0) := "00001";
+	CONSTANT SEG_A      		: std_logic_vector(4 DOWNTO 0) := "10000";
+	CONSTANT SEG_B      		: std_logic_vector(4 DOWNTO 0) := "01000";
+	CONSTANT SEG_C      		: std_logic_vector(4 DOWNTO 0) := "00100";
+	CONSTANT SEG_D      		: std_logic_vector(4 DOWNTO 0) := "00010";
+	CONSTANT SEG_E      		: std_logic_vector(4 DOWNTO 0) := "00001";
 	-- Reset values for the downcounter for each segment
-	CONSTANT SEG_A_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01001";
-	CONSTANT SEG_B_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "10001";
-	CONSTANT SEG_C_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "00101";
-	CONSTANT SEG_D_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "00011";
-	CONSTANT SEG_E_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "10101";
+	CONSTANT SEG_A_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "10010"; --way too early: 18
+	CONSTANT SEG_B_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "10000"; --too early: 16
+	CONSTANT SEG_C_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01111"; --ok: 15
+	CONSTANT SEG_D_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "00011"; --too late: 14
+	CONSTANT SEG_E_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01110"; --way too late: 12
 	-- Downcounter
 	SIGNAL n_count			: std_logic_vector(4 DOWNTO 0);
 	SIGNAL p_count			: std_logic_vector(4 DOWNTO 0);

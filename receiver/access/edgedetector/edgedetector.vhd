@@ -21,7 +21,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
-ENTITY edgedetector_tx IS
+ENTITY edgedetector IS
 	PORT
 	(
 		data   : IN std_logic;
@@ -30,11 +30,11 @@ ENTITY edgedetector_tx IS
 		rst    : IN std_logic;
 		puls   : OUT std_logic
 	);
-END edgedetector_tx;
+END edgedetector;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE behavior OF edgedetector_tx IS
+ARCHITECTURE behavior OF edgedetector IS
 	TYPE state IS (s0, s1, s2);
 	SIGNAL present_state, next_state : state;
 BEGIN

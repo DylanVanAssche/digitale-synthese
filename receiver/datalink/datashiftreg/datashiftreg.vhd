@@ -36,7 +36,7 @@ END;
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
 ARCHITECTURE behavior OF datashiftreg IS
-	SIGNAL shdata          : std_logic_vector(10 DOWNTO 0);
+	SIGNAL shdata          : std_logic_vector(10 DOWNTO 0) := (OTHERS => '0');
 	SIGNAL shdata_next     : std_logic_vector(10 DOWNTO 0) := (OTHERS => '0');
 BEGIN
 -- connect signals to outputs

@@ -20,7 +20,7 @@
 --**********************
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
-ENTITY access_layer IS
+ENTITY access_layer_tx IS
 	PORT
 	(
 		clk       : IN std_logic;
@@ -31,21 +31,21 @@ ENTITY access_layer IS
 		pn_start  : OUT std_logic;
 		tx        : OUT std_logic
 	);
-END access_layer;
-ARCHITECTURE behavior OF access_layer IS
-	SIGNAL pn_1_output  : std_logic;
-	SIGNAL pn_2_output  : std_logic;
-	SIGNAL pn_3_output  : std_logic;
-	SIGNAL pn_1_xor     : std_logic;
-	SIGNAL pn_2_xor     : std_logic;
-	SIGNAL pn_3_xor     : std_logic;
+END access_layer_tx;
+ARCHITECTURE behavior OF access_layer_tx IS
+	SIGNAL pn_1_output  : std_logic := '0';
+	SIGNAL pn_2_output  : std_logic := '0';
+	SIGNAL pn_3_output  : std_logic := '0';
+	SIGNAL pn_1_xor     : std_logic := '0';
+	SIGNAL pn_2_xor     : std_logic := '0';
+	SIGNAL pn_3_xor     : std_logic := '0';
 BEGIN
 --EXOR ports
 pn_1_xor <= pn_1_output XOR data;
 pn_2_xor <= pn_2_output XOR data;
 pn_3_xor <= pn_3_output XOR data;
 --components
-pngenerator : ENTITY work.pngenerator(behavior)
+pngenerator : ENTITY work.pngenerator_tx(behavior)
 PORT MAP
 (
 	clk    => clk,

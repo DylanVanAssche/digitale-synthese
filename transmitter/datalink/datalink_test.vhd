@@ -22,12 +22,12 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
-ENTITY datalink_layer_test IS
-END datalink_layer_test;
+ENTITY datalink_layer_test_tx IS
+END datalink_layer_test_tx;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF datalink_layer_test IS
+ARCHITECTURE structural OF datalink_layer_test_tx IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
@@ -42,7 +42,7 @@ BEGIN
 --***********
 --* MAPPING *
 --***********
-uut : ENTITY work.datalink_layer(behavior)
+uut : ENTITY work.datalink_layer_tx(behavior)
 	PORT MAP
 	(
 		clk       => clk,

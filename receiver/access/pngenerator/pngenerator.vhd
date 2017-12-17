@@ -74,7 +74,7 @@ BEGIN
 	END IF;
 END PROCESS pn_sync;
 -- 2-Process: combinatoric part
-pn_comb : PROCESS (shdata1, shdata2, linear_feedback1, linear_feedback2, seq_det)
+pn_comb : PROCESS (shdata1, shdata2, linear_feedback1, linear_feedback2, seq_det, full_seq)
 BEGIN
 	IF (seq_det = '1') THEN
 		shdata1_next <= "00010";

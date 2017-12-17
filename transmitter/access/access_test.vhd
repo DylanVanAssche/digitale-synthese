@@ -22,12 +22,12 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
-ENTITY access_layer_test IS
-END access_layer_test;
+ENTITY access_layer_test_tx IS
+END access_layer_test_tx;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF access_layer_test IS
+ARCHITECTURE structural OF access_layer_test_tx IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
@@ -35,15 +35,15 @@ ARCHITECTURE structural OF access_layer_test IS
 	SIGNAL clk        : std_logic := '0';
 	SIGNAL clk_en     : std_logic := '1';
 	SIGNAL rst        : std_logic := '0';
-	SIGNAL data	  : std_logic;
-	SIGNAL pn_select  : std_logic_vector(1 DOWNTO 0);
-	SIGNAL pn_start   : std_logic;
-	SIGNAL tx         : std_logic;
+	SIGNAL data	  : std_logic := '0';
+	SIGNAL pn_start   : std_logic := '0';
+	SIGNAL tx         : std_logic := '0';
+	SIGNAL pn_select  : std_logic_vector(1 DOWNTO 0) := (OTHERS => '0');
 BEGIN
 --***********
 --* MAPPING *
 --***********
-uut : ENTITY work.access_layer(behavior)
+uut : ENTITY work.access_layer_tx(behavior)
 	PORT MAP
 	(
 		clk       => clk,
@@ -74,7 +74,7 @@ tb : PROCESS
 	PROCEDURE reset IS
 	BEGIN
 		rst <= '1';
-		WAIT FOR period * 2;
+		WAIT FOR period * 4;
 		rst <= '0';
 		WAIT FOR period;
 	END reset;
