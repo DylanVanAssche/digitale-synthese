@@ -33,7 +33,6 @@ ARCHITECTURE structural OF receiver_test IS
 	CONSTANT DELAY         : TIME := 10 ns;
 	SIGNAL end_of_sim      : BOOLEAN := false;
 	SIGNAL clk             : std_logic := '0';
-	SIGNAL clk_en          : std_logic := '1';
 	SIGNAL rst             : std_logic := '0';
 	SIGNAL rx	       : std_logic := '0';
 	SIGNAL display_b       : std_logic_vector(6 DOWNTO 0);
@@ -51,7 +50,6 @@ uut : ENTITY work.receiver(behavior)
 	PORT MAP
 	(
 		clk		=> clk,
-		clk_en		=> clk_en,
 		rst		=> rst,
 		rx		=> rx,
 		pn_select	=> pn_select,
@@ -94,35 +92,34 @@ BEGIN
 	-- Test data
 	-- seq_det should be 0 for the next loop:
 	FOR pn_code IN 0 TO 3 LOOP
-	  FOR i IN 0 TO 30 LOOP
-	    test(CONV_STD_LOGIC_VECTOR(pn_code, 2), '1');
-	  END LOOP;
+		FOR i IN 0 TO 30 LOOP
+			test(CONV_STD_LOGIC_VECTOR(pn_code, 2), '1');
+		END LOOP;
 	END LOOP;
 	-- seq_det should be 1 for the next 3 loops, NO_PTRN isn't used and already visible in the above loop at initialisation:
 	-- pn1
 	FOR i IN 0 TO 30 LOOP
-	    test("01", PTRN_1(30-i));
+		test("01", PTRN_1(30-i));
 	END LOOP;
 	FOR i IN 0 TO 30 LOOP
-	    test("01", PTRN_1(30-i));
+		test("01", PTRN_1(30-i));
 	END LOOP;
 	WAIT FOR PERIOD*3;
 	-- pn2
 	FOR i IN 0 TO 30 LOOP
-	    test("10", PTRN_2(30-i));
+		test("10", PTRN_2(30-i));
 	END LOOP;
 	FOR i IN 0 TO 30 LOOP
-	    test("10", PTRN_2(30-i));
+		test("10", PTRN_2(30-i));
 	END LOOP;
 	WAIT FOR PERIOD*3;
 	-- pn3
 	FOR i IN 0 TO 30 LOOP
-	    test("11", PTRN_3(30-i));
+		test("11", PTRN_3(30-i));
 	END LOOP;FOR i IN 0 TO 30 LOOP
-	    test("11", PTRN_3(30-i));
+		test("11", PTRN_3(30-i));
 	END LOOP;
 	WAIT FOR PERIOD*3;
-		
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;

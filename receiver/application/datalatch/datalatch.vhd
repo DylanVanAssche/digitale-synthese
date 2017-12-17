@@ -38,8 +38,8 @@ END datalatch;
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
 ARCHITECTURE behavior OF datalatch IS
-	SIGNAL latch: std_logic_vector(3 DOWNTO 0);
-	SIGNAL latch_next: std_logic_vector(3 DOWNTO 0);
+	SIGNAL latch: std_logic_vector(3 DOWNTO 0) := (OTHERS => '0');
+	SIGNAL latch_next: std_logic_vector(3 DOWNTO 0) := (OTHERS => '0');
 	CONSTANT PREAMBLE_VALUE: std_logic_vector(6 DOWNTO 0) := "0111110";
 BEGIN
 -- connect signal to output

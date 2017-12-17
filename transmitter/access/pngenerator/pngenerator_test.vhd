@@ -22,12 +22,12 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
-ENTITY pngenerator_test IS
-END pngenerator_test;
+ENTITY pngenerator_test_tx IS
+END pngenerator_test_tx;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF pngenerator_test IS
+ARCHITECTURE structural OF pngenerator_test_tx IS
 	--initialize signals & constants
 	CONSTANT period   : TIME := 100 ns;
 	CONSTANT delay    : TIME := 10 ns;
@@ -43,7 +43,7 @@ BEGIN
 --***********
 --* MAPPING *
 --***********
-uut : ENTITY work.pngenerator(behavior)
+uut : ENTITY work.pngenerator_tx(behavior)
 	PORT MAP
 	(
 		clk    => clk,

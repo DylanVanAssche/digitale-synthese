@@ -22,15 +22,15 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 USE ieee.std_logic_arith.ALL;
-ENTITY application_layer_test IS
-END application_layer_test;
+ENTITY application_layer_test_tx IS
+END application_layer_test_tx;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE structural OF application_layer_test IS
+ARCHITECTURE structural OF application_layer_test_tx IS
 	--initialize signals & constants
-	CONSTANT period   : TIME := 100 ns;
-	CONSTANT delay    : TIME := 10 ns;
+	CONSTANT PERIOD   : TIME := 100 ns;
+	CONSTANT DELAY    : TIME := 10 ns;
 	SIGNAL end_of_sim : BOOLEAN := false;
 	SIGNAL clk        : std_logic := '0';
 	SIGNAL clk_en     : std_logic := '1';
@@ -43,7 +43,7 @@ BEGIN
 --***********
 --* MAPPING *
 --***********
-uut : ENTITY work.application_layer(behavior)
+uut : ENTITY work.application_layer_tx(behavior)
 	PORT MAP
 	(
 		clk       => clk,
@@ -58,12 +58,12 @@ uut : ENTITY work.application_layer(behavior)
 clock : PROCESS
 BEGIN
 	clk <= '0';
-	WAIT FOR period/2;
+	WAIT FOR PERIOD/2;
 	LOOP
 		clk <= '0';
-		WAIT FOR period/2;
+		WAIT FOR PERIOD/2;
 		clk <= '1';
-		WAIT FOR period/2;
+		WAIT FOR PERIOD/2;
 		EXIT WHEN end_of_sim;
 	END LOOP;
 	WAIT;
@@ -74,24 +74,26 @@ tb : PROCESS
 	PROCEDURE reset IS
 	BEGIN
 		rst <= '1';
-		WAIT FOR period * 2;
+		WAIT FOR PERIOD*2;
 		rst <= '0';
-		WAIT FOR period;
+		WAIT FOR PERIOD;
 	END reset;
 	-- Test data procedure
 	PROCEDURE test (CONSTANT testdata : IN std_logic_vector(1 DOWNTO 0)) IS
 	BEGIN
 		up   <= testdata(0);
 		down <= testdata(1);
-		WAIT FOR period * 5;
+		WAIT FOR PERIOD*5; -- fool the debouncer
 	END test;
 BEGIN
 	-- Reset at startup
 	reset;
 	-- Test data
+	-- test("00"); -- needed to fool the edge detector
 	test("01"); -- up=1, down=0
 	test("00"); -- nothing
 	test("11"); -- nothing
+	test("00"); -- nothing
 	test("10"); -- up=0, down=1
 	test("00");
 	clk_en <= '0'; -- disable clock

@@ -20,7 +20,7 @@
 --**********************
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
-ENTITY datalink_layer IS
+ENTITY datalink_layer_tx IS
 	PORT
 	(
 		clk       : IN std_logic;
@@ -30,8 +30,8 @@ ENTITY datalink_layer IS
 		pn_start  : IN std_logic;
 		output	  : OUT std_logic
 	);
-END datalink_layer;
-ARCHITECTURE behavior OF datalink_layer IS
+END datalink_layer_tx;
+ARCHITECTURE behavior OF datalink_layer_tx IS
 	SIGNAL sh_output : std_logic;
 	SIGNAL ld_output : std_logic;
 BEGIN

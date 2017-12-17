@@ -14,7 +14,7 @@
 --3)Inputs:
 -- sdi_spread, pn_select, rst, clk, clk_en
 --4)Outputs:
--- bitsample, databit
+-- bitsample_out, databit
 --**********************
 --* LIBRARIES & ENTITY *
 --**********************
@@ -37,6 +37,7 @@ ARCHITECTURE behavior OF access_layer IS
 	SIGNAL chipsample_2	: std_logic := '1';
 	SIGNAL chipsample_3	: std_logic := '1';
 	SIGNAL bitsample	: std_logic := '0';
+	SIGNAL bitsample_edged	: std_logic := '0';
 	SIGNAL matchfilter_out	: std_logic := '0';
 	SIGNAL despreader_out	: std_logic := '0';
 	SIGNAL seq_det		: std_logic := '0';
@@ -48,7 +49,7 @@ ARCHITECTURE behavior OF access_layer IS
 	SIGNAL extb		: std_logic := '0';
 BEGIN
 -- Connect signals to outputs
-bitsample_out <= bitsample;
+bitsample_out <= bitsample_edged;
 -- Access layer parts
 dpll : ENTITY work.dpll(behavior)
 PORT MAP
@@ -96,6 +97,17 @@ PORT MAP
 	pn_2       => pn_2,
 	pn_3       => pn_3
 );
+-- PNgenerator depends on chipsample which causes the bitsample to be too long for the datalink's shiftregister.
+-- The bitsample signal is reduced to the length of the clk_en period to avoid issues using an edgedetector.
+edgedetector_bitsample : ENTITY work.edgedetector(behavior) 
+PORT MAP
+(
+	data   => bitsample,
+	puls   => bitsample_edged,
+	clk    => clk,
+	clk_en => clk_en,
+	rst    => rst
+);
 mux_pn_despread : ENTITY work.mux(behavior)
 PORT MAP
 (
@@ -134,7 +146,7 @@ PORT MAP
 	clk_en       => clk_en,
 	rst          => rst,
 	chipsample   => chipsample_3,
-	bitsample    => bitsample,
+	bitsample    => bitsample_edged,
 	sdi_despread => sdi_despread,
 	databit      => databit
 );

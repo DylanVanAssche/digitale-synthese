@@ -24,7 +24,6 @@ ENTITY receiver IS
 	PORT
 	(
 		clk		: IN std_logic;
-		clk_en		: IN std_logic;
 		rst		: IN std_logic;
 		rx		: IN std_logic;
 		pn_select	: IN std_logic_vector(1 DOWNTO 0);
@@ -34,10 +33,18 @@ END receiver ;
 ARCHITECTURE behavior OF receiver IS
 	SIGNAL bitsample	: std_logic;
 	SIGNAL databit		: std_logic;
+	SIGNAL clk_en		: std_logic;
 	SIGNAL preamble		: std_logic_vector(6 DOWNTO 0);
 	SIGNAL data		: std_logic_vector(3 DOWNTO 0); -- received number from transmitter
 BEGIN
 --layers
+nco_rx : ENTITY work.nco_rx(behavior)
+PORT MAP
+(
+	clk    => clk,
+	rst    => rst,
+	clk_en => clk_en
+);
 application_layer : ENTITY work.application_layer(behavior)
 PORT MAP
 (

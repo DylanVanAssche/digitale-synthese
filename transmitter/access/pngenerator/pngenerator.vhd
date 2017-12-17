@@ -20,7 +20,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
-ENTITY pngenerator IS
+ENTITY pngenerator_tx IS
 	PORT
 	(
 		clk    : IN std_logic;
@@ -31,19 +31,19 @@ ENTITY pngenerator IS
 		pn_2   : OUT std_logic;
 		pn_3   : OUT std_logic
 	);
-	SIGNAL shdata1          : std_logic_vector(4 DOWNTO 0);
-	SIGNAL shdata1_next     : std_logic_vector(4 DOWNTO 0);
-	SIGNAL shdata2          : std_logic_vector(4 DOWNTO 0);
-	SIGNAL shdata2_next     : std_logic_vector(4 DOWNTO 0);
-	SIGNAL pn_start_next    : std_logic;
-	SIGNAL pn_start         : std_logic;
-	SIGNAL linear_feedback1 : std_logic;
-	SIGNAL linear_feedback2 : std_logic;
+	SIGNAL shdata1          : std_logic_vector(4 DOWNTO 0) := (OTHERS => '0');
+	SIGNAL shdata1_next     : std_logic_vector(4 DOWNTO 0) := (OTHERS => '0');
+	SIGNAL shdata2          : std_logic_vector(4 DOWNTO 0) := (OTHERS => '0');
+	SIGNAL shdata2_next     : std_logic_vector(4 DOWNTO 0) := (OTHERS => '0');
+	SIGNAL pn_start_next    : std_logic := '0';
+	SIGNAL pn_start         : std_logic := '0';
+	SIGNAL linear_feedback1 : std_logic := '0';
+	SIGNAL linear_feedback2 : std_logic := '0';
 END;
 --*********************************************
 --* ARCHITECTURE, SIGNALS, TYPES & COMPONENTS *
 --*********************************************
-ARCHITECTURE behavior OF pngenerator IS
+ARCHITECTURE behavior OF pngenerator_tx IS
 BEGIN
 -- calculate linear feedback for both PN counters (LFSR)
 linear_feedback1 <= (shdata1(0) XOR shdata1(3));
