@@ -14,6 +14,10 @@ This repository contains the VHDL files for the course "Digital Synthese: practi
 	- datalink layer: DataShiftReg
 	- application layer: DPLL, MatchedFilter, Correlator, Despreader, MUX, PNGenerator, Edgedetector
 
+- Hardware UCF (Xilinx FPGA file)
+	- transmitter
+	- receiver
+
 ## License
 Everything in this repository is available under the GPLv3 License.
 
