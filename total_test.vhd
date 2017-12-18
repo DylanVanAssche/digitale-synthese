@@ -93,18 +93,18 @@ BEGIN
 	-- Reset at startup
 	reset;
 	-- Test data
-	--FOR mux_state IN 0 TO 3 LOOP
---		FOR i IN 0 TO 35 LOOP
---			pn_select <= CONV_STD_LOGIC_VECTOR(mux_state, 2); -- loop through all MUX states
---			test("01"); -- up=1, down=0
---			test("00"); -- nothing
---		END LOOP;
---	END LOOP;
-	pn_select <= "00";
-	test("01"); -- up=1, down=0
-	WAIT FOR PERIOD*100000; -- a lot of clock cycles are needed
-	test("01"); -- nothing
-	WAIT FOR PERIOD*100000;
+	-- AUTOMATED TESTING:
+	FOR mux_state IN 0 TO 3 LOOP
+		pn_select <= CONV_STD_LOGIC_VECTOR(mux_state, 2); -- loop through all MUX states
+		test("01"); -- up=1, down=0
+		WAIT FOR PERIOD*100000;
+	END LOOP;
+	-- MANUAL TESTING:
+	--pn_select <= "00";
+	--test("01"); -- up=1, down=0
+	--WAIT FOR PERIOD*100000; -- a lot of clock cycles are needed
+	--test("01"); -- nothing
+	--WAIT FOR PERIOD*100000;
 	end_of_sim <= true;
 	WAIT;
 END PROCESS;

@@ -46,8 +46,8 @@ count_sync : PROCESS (clk)
 BEGIN
 	IF (rising_edge(clk) AND clk_en = '1') THEN
 		IF (rst = '1') THEN -- rst line high, go to initial state
-			p_count <= (OTHERS => '0');
-			ld <= '1';
+			p_count <= "1010";
+			ld <= '0';
       			sh <= '0';
 		ELSE -- normal operation
 			p_count <= n_count;

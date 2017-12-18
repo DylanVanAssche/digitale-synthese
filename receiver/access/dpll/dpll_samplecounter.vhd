@@ -51,8 +51,8 @@ ARCHITECTURE behavior OF dpll_samplecounter IS
 	CONSTANT SEG_A_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "10010"; --way too early: 18
 	CONSTANT SEG_B_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "10000"; --too early: 16
 	CONSTANT SEG_C_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01111"; --ok: 15
-	CONSTANT SEG_D_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "00011"; --too late: 14
-	CONSTANT SEG_E_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01110"; --way too late: 12
+	CONSTANT SEG_D_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01110"; --too late: 14
+	CONSTANT SEG_E_RST_VALUE	: std_logic_vector(4 DOWNTO 0) := "01100"; --way too late: 12
 	-- Downcounter
 	SIGNAL n_count			: std_logic_vector(4 DOWNTO 0);
 	SIGNAL p_count			: std_logic_vector(4 DOWNTO 0);

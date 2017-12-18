@@ -41,6 +41,7 @@ END datareg;
 ARCHITECTURE behavior OF datareg IS
 	SIGNAL reg: std_logic_vector(10 DOWNTO 0);
 	SIGNAL reg_next: std_logic_vector(10 DOWNTO 0);
+	SIGNAL inverted_data: std_logic_vector(3 DOWNTO 0);
 	CONSTANT PREAMBLE: std_logic_vector(6 DOWNTO 0) := "0111110";
 BEGIN
 -- connect signal to output
@@ -57,10 +58,13 @@ BEGIN
 	END IF;
 END PROCESS reg_sync;
 -- 2-Process: combinatoric part
-reg_comb : PROCESS(reg, ld, sh)
+reg_comb : PROCESS(reg, ld, sh, data)
 BEGIN
-	IF ld = '1' AND sh = '0' THEN -- load data, first PREAMBLE to reg(0) then the number of the counter
-		reg_next <= data & PREAMBLE;
+	-- load data, first PREAMBLE to reg(0) then the number of the counter
+	-- Data is inverted otherwise the data is inverted when read out by the receiver, PREAMBLE is symmetric so it's not affected by this issue
+	IF ld = '1' AND sh = '0' THEN 
+		inverted_data <= data(0) & data(1) & data(2) & data(3); -- VHDL doesn't allow to invert the STD_LOGIC_VECTOR directly
+		reg_next <= inverted_data & PREAMBLE; 
 	ELSIF ld = '0' AND sh = '1' THEN -- shift data, first preamble to reg(0) then the number of the counter
 		reg_next <= '0' & reg(10 DOWNTO 1); -- Zeros added since load signal will occur as soon as zeros are arrived at the output
 	ELSE -- Input signals wrong!
