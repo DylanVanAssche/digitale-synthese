@@ -1,0 +1,61 @@
+#************************************************
+#* TITLE: XUP DSSS board (hardware file)	*
+#* TYPE: UCF File				*
+#* AUTHOR: Dylan Van Assche 			*
+#* DATE: 17/12/2017 				*
+#************************************************
+
+#****************
+#* CLOCK 100MHz *
+#****************
+NET clk LOC="AJ15";
+NET clk IOSTANDARD = LVCMOS25;
+NET clk PERIOD = 10000 ps;
+
+#*********************
+#* 7 SEGMENT DISPLAY *
+#*********************
+#
+#      A
+#   -------
+#   |     |
+# F |     | B
+#   |  G  |
+#   -------
+#   |     |
+# E |     | C
+#   |  D  |
+#   -------
+#	    |x| DP
+#
+# WARNING: active LOW!
+#
+NET "display_b_SEG_A" LOC = "R7"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_B" LOC = "P2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_C" LOC = "R2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_D" LOC = "T2"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_E" LOC = "P4"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_F" LOC = "P5"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_G" LOC = "R8"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "display_b_SEG_DP" LOC = "R6" | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#****************
+#* PUSH BUTTONS *
+#****************
+# WARNING: active LOW!
+NET "rst_b" LOC = "P7"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#****************
+#* DIP SWITCHES *
+#****************
+# WARNING: active LOW!
+NET "pn_select_b_SW0" LOC = "N1"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+NET "pn_select_b_SW1" LOC = "M3"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+#*************
+#* DATA PINS *
+#*************
+NET "rx" LOC = "N6"  | IOSTANDARD = LVTTL | SLEW = SLOW;
+
+
+

@@ -24,11 +24,15 @@ This repository contains the VHDL files for the course "Digital Synthese: practi
 ## Result
 A fully working DSSS Wireless Transmit-Receive System with 3 different PN codes.
 
-![Deployment result 1](docs/deployment1.jpg "2 Virtex II Pro FPGA as a DSSS Wireless Transmit-Receive System")
-
-![Deployment result 2](docs/deployment2.jpg "Wireless extension board for the Virtex II Pro FPGA")
-
-![Deployment demo](docs/demo.gif "DSSS demo")
+<h1 align="center">
+<img src="docs/deployment1.jpg" width="600px" alt="2 Virtex II Pro FPGA as a DSSS Wireless Transmit-Receive System">
+</h1>
+<h1 align="center">
+<img src="docs/deployment2.jpg" width="600px" alt="Wireless extension board for the Virtex II Pro FPGA">
+</h1>
+<h1 align="center">
+<img src="docs/demo.gif" width="600px" alt="Demo">
+</h1>
 
 ## License
 Everything in this repository is available under the GPLv3 License.
